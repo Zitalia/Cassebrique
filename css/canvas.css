@@ -1,0 +1,16 @@
+body{
+	
+	
+	background-repeat: no-repeat;
+	background-color: grey;
+}
+
+.wraper{
+	margin:0 auto;
+	max-width:960px;
+}
+
+#mon_canvas{
+	margin:0 auto;
+	max-width:960px;
+}
