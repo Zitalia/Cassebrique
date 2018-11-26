@@ -106,13 +106,16 @@ window.onload = function() {
         context.clearRect(0, 0, canvas.width, canvas.height);
 
         context.beginPath();
+        context.fillStyle="#000000";
         context.fillRect(Balle.x, Balle.y, Balle.diamB/2, Balle.diamB/2);
+        context.fillStyle="#0000FF";
         context.fillRect(Barre.xP, Barre.yP, Barre.barX , Barre.barY);
         context.fill();
 
         for( i=0; i< brique.length ; i++) {
             if (brique[i].lifePoint==1) {
                 context.beginPath();
+                context.fillStyle="#FF0000";
                 context.fillRect(brique[i].x , brique[i].y, 50 , 20);
                 context.fill();
             }

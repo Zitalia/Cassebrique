@@ -60,12 +60,6 @@ function collisbarre(posP, pos, barre, pos2, PosP2, barreY, vitesse) {
     return vitesse;
 }
 
-function LALALALLAALLA(){
-    LP *= 0;
-    vitesse *= -1;
-}
-
-
 function collisbrique(brique, balle) {
     var resultcoli1 = false;
     if (brique.lifePoint==1){
