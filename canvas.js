@@ -33,7 +33,7 @@ window.onload = function() {
             x : 425,
             y : 250,
             vx : -3,
-            vy : -3,
+            vy : -2,
             diamB: 10
     };
    
@@ -41,12 +41,14 @@ window.onload = function() {
         switch (e.key) {
             case "d":
             case "D":
-                Barre.vPX = 3;
+            case "ArrowRight":
+                Barre.vPX = 4;
                 Barre.xP += Barre.vPX;
                 break;
             case "q":
             case "Q":
-                Barre.vPX = -3;
+            case "ArrowLeft":
+                Barre.vPX = -4;
                 Barre.xP += Barre.vPX;
                 break;
         }
@@ -55,11 +57,13 @@ window.onload = function() {
         switch (e.key) {
             case "d":
             case "D":
+            case "ArrowRight":
                 Barre.vPX = 0;
                 Barre.xP += Barre.vPX;
                 break;
             case "q":
             case "Q":
+             case "ArrowLeft":
                 Barre.vPX = -0;
                 Barre.xP += Barre.vPX;
                 break;
@@ -88,9 +92,14 @@ window.onload = function() {
 
         for( i=0; i< brique.length ; i++) {
             if(collisbrique(brique[i], Balle)) {
+                if(Balle.y  == brique[i].y -1 || Balle.y  == brique[i].y + brique[i].tailleY -1){
                 Balle.vy *= -1;
                 brique[i].lifePoint = 0;
-            }
+                }else {
+                Balle.vx *= -1;
+                brique[i].lifePoint = 0;
+                }
+             }
         }
 
         Barre.xP = telepbarre(Barre.xP, Barre.barX +5, canvas.width, Barre.vPX);

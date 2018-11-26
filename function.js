@@ -15,8 +15,8 @@ function createbrique(taillex, tailley, posx, posy) {
 
 function createReseauBrique(brique) {
     for (var k = 0; k < 2; k++) {
-        for (var j = 0; j < 9; j++) {
-            brique.push(createbrique(50, 20, j*50 +25*j+25*k, k*50));
+        for (var j = 0; j < 10; j++) {
+            brique.push(createbrique(50, 20, j*50 +25*j+25*k, 25+ k*50));
         }
     }
 
@@ -64,7 +64,7 @@ function collisbrique(brique, balle) {
     var resultcoli1 = false;
     if (brique.lifePoint==1){
         if(balle.x >= brique.x && balle.x <= brique.x + brique.tailleX){
-            if(balle.y >= brique.y && balle.y <= brique.y + brique.tailleY){
+            if(balle.y >= brique.y -1 && balle.y <= brique.y + brique.tailleY - 1){
                 resultcoli1 = true;
             }
         }
@@ -73,9 +73,18 @@ function collisbrique(brique, balle) {
 }
 
 
+// var imglose = new Image();   // Crée un nouvel élément img
+// imglose.src = 'naruto.gif'; // définit le chemin de la source
+// function drawlose(){
+//     context.beginPath();    
+//     context.drawImage(imglose, 50, 50); 
+//     context.fill();
+// }
+
 function loselalose(posY, limite){
     if(posY >= limite){
-        //alert("U LOSE NOOB")
+        // drawlose();
+        alert("U LOSE NOOB")
         document.location.reload(true);
     }
 }
