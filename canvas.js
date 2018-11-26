@@ -117,7 +117,5 @@ window.onload = function() {
                 context.fill();
             }
         }
-
-
     }
 }
