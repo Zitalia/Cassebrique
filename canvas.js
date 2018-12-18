@@ -10,33 +10,35 @@ window.onload = function() {
         alert("Impossible de récupérer le context du canvas");
         return;
     }
-    
-    var Barre = {
-           barY : 10,
-           barX : 100,
-           leftbar: 0,
-           midbar: 0,
-           rightbar: 0,
-           vPX : 0,
-           vPY : 0,
-           xP : 0,
-           yP : 0
-    };
+    let Barre = new Classbarre(10, 100, 0, 0, canvas.width, canvas.height);
+//     var Barre = {
+//            barY : 10,
+//            barX : 100,
+//            leftbar: 0,
+//            midbar: 0,
+//            rightbar: 0,
+//            vPX : 0,
+//            vPY : 0,
+//  xP : 0,
+// yP : 0
+// };
 
-   Barre.xP = canvas.width / 2 - Barre.barX / 2;
-   Barre.yP = canvas.height - 5 - Barre.barY;
+// Barre.xP = canvas.width / 2 - Barre.barX / 2;
+// Barre.yP = canvas.height - 5 - Barre.barY;
 
-   Barre.midbar = Barre.leftbar + Barre.barX / 3;
-   Barre.rightbar = Barre.midbar + Barre.barX / 3;
+// Barre.midbar = Barre.leftbar + Barre.barX / 3;
+// Barre.rightbar = Barre.midbar + Barre.barX / 3;
 
-    var Balle = {
-            x : 425,
-            y : 250,
-            vx : -3,
-            vy : -2,
-            diamB: 10
-    };
-   
+    // var Balle = {
+    //         x : 425,
+    //         y : 250,
+    //         vx : -3,
+    //         vy : -2,
+    //         diamB: 10
+    // };
+
+    var Balle = new classBalle(125, 250, 10);
+
     window.addEventListener("keydown", function(e) {
         switch (e.key) {
             case "d":
@@ -69,65 +71,87 @@ window.onload = function() {
                 break;
         }
     });
+    
 
-
-    var brique= [];
-    createReseauBrique(brique);
+    // var Brique = new ClassBrique;
+    // Brique.createReseauBrique(Brique);
 
     var myInterval = setInterval(animate, 1000/90);
     function animate() {
-        Balle.x = deplacement(Balle.x, Balle.vx);
-        Balle.y = deplacement(Balle.y, Balle.vy);
-        
-        Balle.vx = colision(Balle.x, Balle.diamB, canvas.width, Balle.vx);
-        Balle.vy = colision(Balle.y, Balle.diamB, canvas.height, Balle.vy);
-
-        Balle.vy = collisbarre(Barre.xP, Balle.x, Barre.barX, Balle.y, Barre.yP, Barre.barY, Balle.vy);
-
-        if(Balle.vx > 0) {
-           Balle.vx = collisbarre(Barre.xP, Balle.x, Barre.midbar, Balle.y, Barre.yP, Barre.barY, Balle.vx);
-        } else {
-           Balle.vx = collisbarre(Barre.xP + Barre.midbar, Balle.x, Barre.rightbar, Balle.y, Barre.yP, Barre.barY, Balle.vx);
-        }
-
-        for( i=0; i< brique.length ; i++) {
-            if(collisbrique(brique[i], Balle)) {
-                if(Balle.y  == brique[i].y -1 || Balle.y  == brique[i].y + brique[i].tailleY -1){
-                Balle.vy *= -1;
-                brique[i].lifePoint = 0;
-                }else {
-                Balle.vx *= -1;
-                brique[i].lifePoint = 0;
-                }
-             }
-        }
-
-        Barre.xP = telepbarre(Barre.xP, Barre.barX +5, canvas.width, Barre.vPX);
-
-        Barre.xP = Pdeplacement(Barre.xP, Barre.vPX);
-
-        loose = loselalose(Balle.y, canvas.height - 5 );
-
-
-
-        checkBriqueDead(brique);
-
         context.clearRect(0, 0, canvas.width, canvas.height);
+        
+        Barre.draw(context);
+        Balle.draw(context);
 
-        context.beginPath();
-        context.fillStyle="#000000";
-        context.fillRect(Balle.x, Balle.y, Balle.diamB/2, Balle.diamB/2);
-        context.fillStyle="#0000FF";
-        context.fillRect(Barre.xP, Barre.yP, Barre.barX , Barre.barY);
-        context.fill();
+        Balle.collisbarre(Barre.xP, Barre.barX, Barre.yP, Barre.barY);
+        Balle.colision(canvas.width, canvas.height);
+        Balle.deplacement();
+        // Balle.x = deplacement(Balle.x, Balle.vx);
+        // Balle.y = deplacement(Balle.y, Balle.vy);
+        
+        // Balle.vx = colision(Balle.x, Balle.diamB, canvas.width, Balle.vx);
+        // Balle.vy = colision(Balle.y, Balle.diamB, canvas.height, Balle.vy);
 
-        for( i=0; i< brique.length ; i++) {
-            if (brique[i].lifePoint==1) {
-                context.beginPath();
-                context.fillStyle="#FF0000";
-                context.fillRect(brique[i].x , brique[i].y, 50 , 20);
-                context.fill();
-            }
-        }
+        // Balle.vy = collisbarre(Barre.xP, Balle.x, Barre.barX, Balle.y, Barre.yP, Barre.barY, Balle.vy);
+        // if(Balle.vx > 0) {
+        //    Balle.vx = collisbarre(Barre.xP, Balle.x, Barre.midbar, Balle.y, Barre.yP, Barre.barY, Balle.vx);
+        // } else {
+        //    Balle.vx = collisbarre(Barre.xP + Barre.midbar, Balle.x, Barre.rightbar, Balle.y, Barre.yP, Barre.barY, Balle.vx);
+        // }
+
+        // for( i=0; i< brique.length ; i++) {
+        //     if(collisbrique(brique[i], Balle)) {
+        //         if(Balle.y  == brique[i].y -1 || Balle.y  == brique[i].y + brique[i].tailleY -1){
+        //         Balle.vy *= -1;
+        //         brique[i].lifePoint = 0;
+        //         }else {
+        //         Balle.vx *= -1;
+        //         brique[i].lifePoint = 0;
+        //         }
+        //      }
+        // }
+
+        // Barre.xP = telepbarre(Barre.xP, Barre.barX +5, canvas.width, Barre.vPX);
+        Barre.telepbarre(canvas.width);    
+        Barre.deplacement();
+        // Barre.xP = Pdeplacement(Barre.xP, Barre.vPX);
+
+        //loose = loselalose(Balle.y, canvas.height - 5 );
+
+
+
+        // checkBriqueDead(brique);
+
+        
+        
+        // context.beginPath();
+        // context.fillStyle="#000000";
+        // context.fillRect(Balle.x, Balle.y, Balle.diamB/2, Balle.diamB/2);
+        // context.fillStyle="#0000FF";
+        // context.fillRect(Barre.xP, Barre.yP, Barre.barX , Barre.barY);
+        // context.fill();
+        
+        // for( i=0; i< brique.length ; i++) {
+        //     if (brique[i].lifePoint==1) {
+        //         context.beginPath();
+        //         context.fillStyle="#FF0000";
+        //         context.fillRect(brique[i].x , brique[i].y, 50 , 20);
+        //         context.fill();
+        //     }
+        // } 
+
+        // if(loselalose){
+            
+        //     var x =canvas.width/2;
+        //     var y = canvas.height/2;
+        //     var step = 20;
+        //     var scale = 1;
+        //     //  context.beginPath();    
+        //     //  context.drawImage(imglose, 316*step, 0, 316, 215 ,x- 225 * scale, y-75 * scale , 300 * scale ,300 * scale); 
+        //     // //requestAnimationFrame(animate);
+        //     // context.fill();
+        // }
+            
+        
     }
 }

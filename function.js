@@ -1,64 +1,65 @@
 
-function createbrique(taillex, tailley, posx, posy) {
+// function createbrique(taillex, tailley, posx, posy) {
 
-    var resultt = {};
-    resultt.tailleX= taillex;
-    resultt.tailleY= tailley;
-    resultt.x = posx;
-    resultt.y = posy;
-    resultt.lifePoint = 1;
+//     var resultt = {};
+//     resultt.tailleX= taillex;
+//     resultt.tailleY= tailley;
+//     resultt.x = posx;
+//     resultt.y = posy;
+//     resultt.lifePoint = 1;
 
  
-    return resultt;
+//     return resultt;
 
-}
+// }
 
-function createReseauBrique(brique) {
-    for (var k = 0; k < 2; k++) {
-        for (var j = 0; j < 10; j++) {
-            brique.push(createbrique(50, 20, j*50 +25*j+25*k, 25+ k*50));
-        }
-    }
+// function createReseauBrique(brique) {
+//     for (var k = 0; k < 2; k++) {
+//         for (var j = 0; j < 10; j++) {
+//             brique.push(createbrique(50, 20, j*50 +25*j+25*k, 25+ k*50));
+//         }
+//     }
 
-}
-function Pdeplacement(pos, vitesse) {
-    pos += vitesse;
-    return pos;
-}
+// }
+// function Pdeplacement(pos, vitesse) {
+//     pos += vitesse;
+//     return pos;
+// }classbarre
 
-function deplacement(pos, vitesse) {
-    pos += vitesse;
-    return pos;
-}
+// function deplacement(pos, vitesse) {
+//     pos += vitesse;
+//     return pos;
+// }CLASSEBALLE
 
-function colision(pos, diamBalle, limite, vitesse) {
-    if(pos+diamBalle/2 >= limite || pos <= 0  )
-    //Si on touche le bord 
-    {
-        vitesse *= -1;
-    }
-    return vitesse;
-}
-function telepbarre(pos, taillebarre, limite, vitesse) {
-    if(pos+taillebarre >= limite || pos <= 0  ) {
-        if(pos > 500) {
-            pos = 15;    
-        }else if(pos <= 10){
-            pos = 1 + limite - taillebarre;
-        }      
-    }
-    return pos;
-}
+// function colision(pos, diamBalle, limite, vitesse) {
+//     if(pos+diamBalle/2 >= limite || pos <= 0  )
+//     //Si on touche le bord 
+//     {
+//         vitesse *= -1;
+//     }
+//     return vitesse;
+// }CLASSBALLE
 
-function collisbarre(posP, pos, barre, pos2, PosP2, barreY, vitesse) {
+// function telepbarre(pos, taillebarre, limite, vitesse) {
+//     if(pos+taillebarre >= limite || pos <= 0  ) {
+//         if(pos > 500) {
+//             pos = 15;    
+//         }else if(pos <= 10){
+//             pos = 1 + limite - taillebarre;
+//         }      
+//     }
+//     return pos;
+// }CLASSEBARRE
+
+// function collisbarre(posP, pos, barre, pos2, PosP2, barreY, vitesse) {
     
-    if(pos >= posP && pos <= posP + barre){
-        if(pos2 >= PosP2 && pos2 <= PosP2 + barreY){
-        vitesse *= -1;
-        }
-    }
-    return vitesse;
-}
+//     if(pos >= posP && pos <= posP + barre){
+//         if(pos2 >= PosP2 && pos2 <= PosP2 + barreY){
+//         vitesse *= -1;
+//         }
+//     }
+//     return vitesse;
+// }
 
 function collisbrique(brique, balle) {
     var resultcoli1 = false;
@@ -73,19 +74,10 @@ function collisbrique(brique, balle) {
 }
 
 
-// var imglose = new Image();   // Crée un nouvel élément img
-// imglose.src = 'naruto.gif'; // définit le chemin de la source
-// function drawlose(){
-//     context.beginPath();    
-//     context.drawImage(imglose, 50, 50); 
-//     context.fill();
-// }
-
 function loselalose(posY, limite){
     if(posY >= limite){
-        // drawlose();
         alert("U LOSE NOOB")
-        document.location.reload(true);
+        //document.location.reload(true);
     }
 }
 
